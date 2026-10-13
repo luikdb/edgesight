@@ -1,0 +1,8 @@
+# Runtime dependencies (Python 3.12). The vision-language model is served separately by Ollama.
+faster-whisper
+piper-tts
+av<17
+rapidocr-onnxruntime
+opencv-python-headless
+numpy
+pillow

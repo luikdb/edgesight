@@ -1,0 +1,3 @@
+-r requirements.txt
+pytest
+playwright   # only for scripts/mockup_screens.py and scripts/build_mockups.py

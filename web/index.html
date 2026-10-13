@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>EdgeSight</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23111317'/><circle cx='16' cy='16' r='8' fill='none' stroke='%23eceef2' stroke-width='2.5'/><circle cx='16' cy='16' r='3' fill='%236ea2ff'/></svg>">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-logo" viewBox="0 0 32 32"><circle cx="16" cy="16" r="9" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="16" cy="16" r="3.5" fill="var(--accent)"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path d="M5 6V4.5h14V6M12 4.5v15M9 19.5h6"/></symbol>
+  <symbol id="i-label" viewBox="0 0 24 24"><path d="M4 7.5A1.5 1.5 0 0 1 5.500 6h9.200a1.500 1.500 0 0 1 1.100.5l3.700 4.300a1.500 1.500 0 0 1 0 1.900l-3.700 4.300a1.500 1.500 0 0 1-1.100.5H5.500A1.500 1.500 0 0 1 4 16.500z"/><path d="M8 12h4"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.500 12S6 5.500 12 5.500 21.500 12 21.500 12 18 18.500 12 18.500 2.500 12 2.500 12z"/><circle cx="12" cy="12" r="2.800"/></symbol>
+  <symbol id="i-find" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.500"/><circle cx="12" cy="12" r="1.500"/><path d="M12 2.500v3M12 18.500v3M2.500 12h3M18.500 12h3"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6.500" y="6.500" width="11" height="11" rx="2"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M12 19V5M5.500 11.500 12 5l6.500 6.500"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.500M12 18.500V21M3 12h2.500M18.500 12H21M5.600 5.600l1.800 1.800M16.600 16.600l1.800 1.800M5.600 18.400l1.800-1.800M16.600 7.400l1.800-1.800"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+  <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4.500 9.500v5h3.500l4.500 3.500V6L8 9.500zM16 9a4 4 0 0 1 0 6"/></symbol>
+</defs></svg>
+
+<div id="app">
+  <header class="top">
+    <div class="brand"><svg class="logo"><use href="#i-logo"/></svg><span>EdgeSight</span></div>
+    <span class="tape green" id="netchip"><span id="nettxt">Checking</span></span>
+    <div class="hbar">
+      <button class="ghost" id="viewbtn" type="button" aria-pressed="false" title="Technical details (V)"><svg class="ic"><use href="#i-sliders"/></svg><span id="viewtxt">Details</span></button>
+      <button class="ghost" id="setbtn" type="button" title="Settings"><svg class="ic"><use href="#i-gear"/></svg><span>Settings</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="left">
+      <div class="stage" id="stage">
+        <video id="cam" autoplay playsinline muted></video>
+        <canvas id="overlay"></canvas>
+        <div class="alertbar" id="alertbar" role="alert"><span id="alerttxt"></span></div>
+        <div class="state">
+          <span class="tape red" id="listenpill" hidden>Listening</span>
+          <span class="tape blue" id="findpill" hidden>Finding <b id="findname"></b></span>
+          <span class="tape yellow" id="guardpill" hidden>Hazards on</span>
+        </div>
+        <div class="hud" id="hud" hidden><span id="fps">idle</span><span id="detms"></span><span id="objcount"></span></div>
+        <div class="captions" id="captions"><div class="cap you" id="capyou"></div><div class="cap es" id="capes"></div></div>
+        <div class="nocam" id="nocam" hidden><b>No camera</b><span id="nocamtxt"></span></div>
+      </div>
+
+      <div class="controls">
+        <div class="switches">
+          <button class="sw" id="guardbtn" type="button" role="switch" aria-pressed="false" title="Hazard alerts (H)"><span class="track"></span>Hazards</button>
+          <button class="sw" id="boxbtn" type="button" role="switch" aria-pressed="false" title="Detection boxes (B)"><span class="track"></span>Detections</button>
+        </div>
+        <div class="dock" role="toolbar" aria-label="Actions">
+          <button class="act" data-cmd="read this" type="button" title="Read text (R)"><span class="disc"><svg class="ic"><use href="#i-text"/></svg></span><span class="lbl">Read text</span></button>
+          <button class="act" data-cmd="read the medicine label" type="button" title="Read label (L)"><span class="disc"><svg class="ic"><use href="#i-label"/></svg></span><span class="lbl">Read label</span></button>
+          <button class="act talk" id="talk" type="button" title="Hold Space to talk"><span class="disc"><svg class="ic"><use href="#i-mic"/></svg></span><span class="lbl">Hold to talk</span></button>
+          <button class="act" data-cmd="what's in front of me?" type="button" title="Describe (D)"><span class="disc"><svg class="ic"><use href="#i-eye"/></svg></span><span class="lbl">Describe</span></button>
+          <button class="act" id="findbtn" type="button" title="Find an object (F)"><span class="disc"><svg class="ic"><use href="#i-find"/></svg></span><span class="lbl">Find…</span></button>
+        </div>
+        <button class="stop" id="stopbtn" type="button" title="Stop (Esc)"><svg class="ic"><use href="#i-stop"/></svg>Stop</button>
+      </div>
+    </section>
+
+    <aside class="right">
+      <section class="panel convo">
+        <div class="phead"><h2>Conversation</h2><button class="link" id="clear" type="button">Clear</button></div>
+        <div class="feed" id="feed" aria-live="polite">
+          <div class="empty" id="empty">
+            <span class="disc"><svg class="ic"><use href="#i-mic"/></svg></span>
+            <b>Hold Space and ask</b>
+            <span>“What's in front of me?” · “Read this” · “Find my cup”</span>
+          </div>
+        </div>
+        <form class="ask" id="askform"><input id="asktext" placeholder="Or type a question" autocomplete="off" aria-label="Type a command"><button class="send" type="submit" aria-label="Send"><svg class="ic"><use href="#i-send"/></svg></button></form>
+      </section>
+
+      <section class="panel details" id="details">
+        <div class="phead"><h2>On-device pipeline</h2><span class="muted" id="vlmname"></span></div>
+        <table class="pipe">
+          <thead><tr><th>Stage</th><th>Runs on</th><th class="n">p50</th><th>Budget</th></tr></thead>
+          <tbody>
+            <tr data-m="detector"><th>Object detection</th><td>CPU</td><td class="n" id="m-detector">–</td><td><i class="bar"><b id="b-detector"></b></i><small>50 ms</small></td></tr>
+            <tr data-m="stt"><th>Speech to text</th><td>CPU</td><td class="n" id="m-stt">–</td><td><i class="bar"><b id="b-stt"></b></i><small>2 s</small></td></tr>
+            <tr data-m="ocr"><th>Text reading</th><td>CPU</td><td class="n" id="m-ocr">–</td><td><i class="bar"><b id="b-ocr"></b></i><small>1.5 s</small></td></tr>
+            <tr data-m="vlm"><th>Scene understanding</th><td>GPU</td><td class="n" id="m-vlm">–</td><td><i class="bar"><b id="b-vlm"></b></i><small>2 s</small></td></tr>
+            <tr data-m="tts"><th>Text to speech</th><td>CPU</td><td class="n" id="m-tts">–</td><td><i class="bar"><b id="b-tts"></b></i><small>600 ms</small></td></tr>
+          </tbody>
+        </table>
+        <p class="note">Budgets are our own targets. Stage II target hardware: ASUS UGen300 (Hailo-10H). Live detection: <span id="m-fps">idle</span>.</p>
+      </section>
+    </aside>
+  </main>
+
+  <div class="drawer" id="drawer" hidden>
+    <div class="dcard" role="dialog" aria-label="Settings">
+      <div class="phead"><h2>Settings</h2><button class="link" id="closeset" type="button">Done</button></div>
+      <label>Voice<select id="voice"></select></label>
+      <label>Scene model<select id="model">
+        <option value="edge">Small: Qwen3.5 2B (fits the UGen300)</option>
+        <option value="quality">Large: Qwen3.5 9B (this PC only)</option></select></label>
+      <label>Camera<select id="camsel"></select></label>
+      <div class="focus" id="focusbox" hidden>
+        <div class="frow"><span class="flabel">Camera focus</span><span class="muted" id="focuscam"></span></div>
+        <div class="seg" role="group" aria-label="Focus mode">
+          <button type="button" id="fauto" aria-pressed="true">Auto</button>
+          <button type="button" id="fman" aria-pressed="false">Manual</button>
+        </div>
+        <div class="slide"><input type="range" id="focusval" min="0" max="100" step="1" aria-label="Focus level"><output id="focusnum" for="focusval">0</output></div>
+        <div class="frow"><button class="link" id="focustune" type="button">Tune to this view</button><span class="muted" id="focusmsg"></span></div>
+      </div>
+      <div class="row"><label class="tog"><input type="checkbox" id="rot"> Rotate 180°</label><label class="tog"><input type="checkbox" id="mir"> Mirror</label></div>
+      <div class="row"><label class="tog"><input type="checkbox" id="sonar" checked> Tones while finding</label><label class="tog"><input type="checkbox" id="earcons" checked> Alert tones</label></div>
+      <div class="row"><label class="tog"><input type="checkbox" id="caps" checked> On-screen captions</label><label class="tog"><input type="checkbox" id="boxes"> Detection boxes</label></div>
+      <p class="muted">Space: hold to talk · R read · L label · D describe · F find · H hazards · B detections · V details · Esc stop</p>
+    </div>
+  </div>
+  <div class="sr" aria-live="assertive" id="srlive"></div>
+</div>
+<script src="app.js"></script>
+</body></html>

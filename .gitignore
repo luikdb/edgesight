@@ -1,0 +1,17 @@
+# environments and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# large models are fetched by scripts/setup_models.sh
+models/*.onnx
+models/voices/
+
+# local run output
+results/server.log
+results/latency.csv
+
+# design-tool state and generated mockup intermediates (final images live in docs/images)
+.impeccable/
+mockups/
