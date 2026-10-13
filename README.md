@@ -48,6 +48,14 @@ Hold **Space**, ask, and it answers in text and out loud.
 </tr>
 </table>
 
+### Real demo on a webcam
+
+<p align="center">
+  <img src="docs/images/real-demo-label.jpg" alt="Real screenshot: EdgeSight reading a medicine blister pack through a webcam" width="900">
+</p>
+
+A real screenshot (not a mockup) from the prototype running on a webcam, reading a medicine blister pack. The conversation shows what actually happened: the first read said the label was too blurry and asked the user to move closer, and after moving closer the second read got the drug, dose, tablet count and warnings right. A small model still makes mistakes, which is why it is built to say when it is unsure instead of guessing.
+
 Screens are the real interface running on the sample photos in `demo/`, with real answers from the local pipeline. See [demo/CREDITS.md](demo/CREDITS.md) for the photo licences.
 
 ## How it works
