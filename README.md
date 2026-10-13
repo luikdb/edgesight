@@ -148,4 +148,4 @@ Fonts (Hanken Grotesk, Red Hat Mono) are SIL OFL. Model files are not stored in 
 
 Sample photos: Wikimedia Commons, see [demo/CREDITS.md](demo/CREDITS.md). Competition: ASUS UGen AI League (ASUS, Intel, Hailo).
 
-Licence: to be chosen by the team before release.
+Licence: EdgeSight's own code is released under the **[Apache License 2.0](LICENSE)**. It depends on third-party libraries and models that keep their own licences, listed in the table above; check them before commercial use.
