@@ -148,9 +148,10 @@ Fonts (Hanken Grotesk, Red Hat Mono) are SIL OFL. Model files are not stored in 
 ## Roadmap
 
 1. **Stage II:** compile the detector for the Hailo-10H, evaluate a VLM that fits the 8 GB budget, measure latency, power and accuracy on the UGen300.
-2. Depth sensing for real distance and stair detection.
-3. Local-language packs for regions the big apps serve poorly.
-4. User testing with an association for the blind.
+2. **Physical buttons on the pendant or strap** for one-press **Read text** (text to speech), **Describe what is in front of me**, Read label, Find and Stop, so the user never needs voice or a screen, even in a noisy street. Each is already a single action in the software today (the on-screen buttons and keyboard shortcuts), so a hardware button only has to trigger the same call.
+3. Depth sensing for real distance and stair detection.
+4. Local-language packs for regions the big apps serve poorly.
+5. User testing with an association for the blind.
 
 ## Credits and licence
 

@@ -406,4 +406,4 @@ Stage II deliverables: latency, power and accuracy numbers on the real device, s
 - **English only** for speech in and out.
 - **Speech-to-text takes about 1.5 s** for a short utterance on this CPU.
 - **Camera orientation:** the demo webcam is mounted upside down, so "Rotate 180°" defaults to on. Change it in Settings for other cameras.
-- **Not built:** wearable hardware, phone-as-camera, depth sensing (roadmap), multilingual packs (roadmap), a live Hailo port.
+- **Not built:** physical buttons on the pendant or strap for one-press read text, describe, read label, find and stop (planned; the software already exposes each as a single action), wearable hardware, phone-as-camera, depth sensing (roadmap), multilingual packs (roadmap), a live Hailo port.
